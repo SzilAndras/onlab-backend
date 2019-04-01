@@ -6,13 +6,13 @@ export class Reservation {
   readonly reservationId: number;
 
   @Column()
-  readonly userID: number;
+  readonly userId: number;
 
   @Column()
-  readonly vehichleType: string;
+  readonly vehicleType: string;
 
   @Column()
-  readonly platenumber: string;
+  readonly plateNumber: string;
 
   @Column()
   readonly vin: string;
@@ -21,14 +21,14 @@ export class Reservation {
   readonly works: string /*{work: string, time: string, price: number}*/;
 
   @Column()
-  readonly appointment: string /*{day: string, time: string}*/;
+  readonly appointment: Date /*{day: string, time: string}*/;
 
   @Column()
-  readonly commments: string /*{authorId: number, content: string}*/;
+  readonly comments: string /*{authorId: number, content: string}*/;
 
   @Column()
   readonly state: string;
 
   @Column()
-  readonly suggestedApointment: string /*{day: string, time: string}*/;
+  readonly suggestedAppointment: string /*{day: string, time: string}*/;
 }

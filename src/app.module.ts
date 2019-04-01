@@ -16,5 +16,5 @@ import { Reservation } from './reservation/reservation.entity';
   providers: [AppService, ReservationService],
 })
 export class AppModule {
-  /*constructor(private readonly connection: Connestion)*/
+  /*docker-compose up*/
 }
