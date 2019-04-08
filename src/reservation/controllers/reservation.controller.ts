@@ -1,15 +1,14 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ReservationService } from './reservation.service';
-import { Reservation } from './reservation.entity';
-import { Logger } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
+import { ReservationService } from '../services/reservation.service';
+import { Reservation } from '../entities/reservation.entity';
 
 @Controller('reservation')
 export class ReservationController {
-   constructor(private readonly reservationService: ReservationService) {}
+   constructor(
+     private readonly reservationService: ReservationService) {}
 
    @Post('/save')
   async save(@Body() reservation: Reservation) {
-     Logger.log('create controller');
      this.reservationService.save(reservation);
    }
 
