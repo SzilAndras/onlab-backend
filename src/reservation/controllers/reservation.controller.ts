@@ -9,7 +9,7 @@ export class ReservationController {
 
    @Post('/save')
   async save(@Body() reservation: Reservation) {
-     this.reservationService.save(reservation);
+     return this.reservationService.save(reservation);
    }
 
    @Get('/findAll')
@@ -20,5 +20,10 @@ export class ReservationController {
    @Get('/findById/:id')
   async findById(@Param('id') id: number): Promise<Reservation> {
     return this.reservationService.findById(id);
+  }
+
+  @Get('/findByUserId=:id')
+  async findUserById(@Param('id') id: number): Promise<Reservation[]> {
+    return this.reservationService.findByUserId(id);
   }
 }

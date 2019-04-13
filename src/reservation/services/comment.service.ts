@@ -24,7 +24,7 @@ export class CommentService {
     return await this.commentRepository
       .createQueryBuilder('comment')
       .where('comment.reservation.id = :id', { id: reId })
-      .orderBy('comment.number')
+      .orderBy('comment.commentNumber')
       .getMany();
   }
 }
