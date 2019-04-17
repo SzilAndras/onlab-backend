@@ -15,14 +15,37 @@ import { CommentService } from './reservation/services/comment.service';
 import { CommentController } from './reservation/controllers/comment.controller';
 import { AppointmentController } from './reservation/controllers/appointment.controller';
 import { WorkController } from './reservation/controllers/work.controller';
+import { User } from './user/user.entity';
+import { UserController } from './user/user.controller';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
     UserModule,
     TypeOrmModule.forRoot(),
-    TypeOrmModule.forFeature([Reservation, Appointment, Comment, Work])],
-  controllers: [AppController, ReservationController, CommentController, AppointmentController, WorkController],
-  providers: [AppService, ReservationService, WorkService, AppointmentService, CommentService],
+    TypeOrmModule.forFeature([
+      Reservation,
+      Appointment,
+      Comment,
+      Work,
+      User,
+    ])],
+  controllers: [
+    AppController,
+    ReservationController,
+    CommentController,
+    AppointmentController,
+    WorkController,
+    UserController,
+  ],
+  providers: [
+    AppService,
+    ReservationService,
+    WorkService,
+    AppointmentService,
+    CommentService,
+    UserService,
+  ],
 })
 export class AppModule {
 

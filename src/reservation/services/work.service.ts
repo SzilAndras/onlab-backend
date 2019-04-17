@@ -12,11 +12,11 @@ export class WorkService{
   ) { }
 
   async saveWork(work: Work){
-    this.workRepository.save(work);
+    return await this.workRepository.save(work);
   }
 
   async removeWork(work: Work){
-    this.workRepository.remove(work).catch(error => {
+    return await this.workRepository.remove(work).catch(error => {
       Logger.log(work);
       Logger.log(error);
     });
