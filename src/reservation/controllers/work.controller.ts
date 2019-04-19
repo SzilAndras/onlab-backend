@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
 import { ReservationService } from '../services/reservation.service';
 import { WorkService } from '../services/work.service';
 import { Work } from '../entities/work.entity';
+import { AuthGuard } from '../../shared/auth.guard';
+import { User } from '../../user/user.decorator';
 
 @Controller('work')
 export class WorkController {
@@ -17,6 +19,18 @@ export class WorkController {
       this.workService.saveWork(work);
     });
   }
+
+ /* @UseGuards(new AuthGuard())
+  async findAll(@User() user) {
+    if (user.role === 'Admin') {
+      return await this.userService.findAll();
+    } else {
+      return new HttpException('Permission denied', HttpStatus.FORBIDDEN);
+    }
+  }*/
+
+
+
 
   @Delete('/deleteWork')
   async removeWork(@Body() work: Work){

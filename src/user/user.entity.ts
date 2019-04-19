@@ -14,6 +14,13 @@ export class User {
   })
   email: string;
 
+  @Column({
+    type: 'enum',
+    enum: ['User', 'Admin'],
+    default: 'User',
+  })
+  role: string;
+
   @Column()
   fullName: string;
 
@@ -29,11 +36,10 @@ export class User {
   }
 
   toResponseObject(showToken: boolean = true): UserRO{
-    const {id, email, fullName, phoneNumber, token} = this;
-    const responseObject: any = {id, email, fullName, phoneNumber};
-    if(showToken){
+    const {id, email, fullName, phoneNumber, role, token} = this;
+    const responseObject: any = {id, email, fullName, phoneNumber, role};
+    if (showToken){
       responseObject.token = token;
-      // TODO
     }
     return responseObject;
   }
@@ -43,11 +49,12 @@ export class User {
   }
 
   private get token() {
-    const {id, email} = this;
+    const {id, email, role} = this;
     return jwt.sign(
       {
         id,
         email,
+        role,
       },
       'SecretKey', { expiresIn: '7d'},
     );

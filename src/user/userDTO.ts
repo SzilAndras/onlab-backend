@@ -7,7 +7,6 @@ export interface UserDTO{
 export interface UserRO {
   id: number;
   email: string;
-  password: string;
   fullName: string;
   phoneNumber: string;
   token?: string;

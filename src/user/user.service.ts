@@ -34,6 +34,9 @@ export class UserService {
     user = await this.userRepository.create(data);
     await this.userRepository.save(user);
     return user.toResponseObject();
+  }
 
+  async findOneById(id: number){
+    return await this.userRepository.findOne(id);
   }
 }
