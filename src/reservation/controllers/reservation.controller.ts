@@ -16,8 +16,9 @@ export class ReservationController {
   async save(@User() user, @Body() reservation: Reservation ) {
      const userTemp = await this.userService.findOneById(user.id);
      if(!userTemp){
-       throw new HttpException('User dont exist!', HttpStatus.BAD_REQUEST);
+       throw new HttpException('User does not exist!', HttpStatus.BAD_REQUEST);
      }
+     // TODO tulajdonos külde vagy admin
      reservation.userId = user.id;
      return this.reservationService.save(reservation);
    }
@@ -38,5 +39,15 @@ export class ReservationController {
   @UseGuards(new AuthGuard())
   async findUserById(@User() user): Promise<Reservation[]> {
     return this.reservationService.findByUserId(user.id);
+  }
+
+  @Get('/findByState/:state')
+  @UseGuards(new AuthGuard())
+  async findByState(@User() user, @Param('state') state: string) {
+     if (user.role === 'Admin') {
+       return this.reservationService.findByState(state);
+     } else {
+       throw new HttpException('Access denied', HttpStatus.BAD_REQUEST);
+     }
   }
 }

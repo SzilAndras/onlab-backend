@@ -52,4 +52,11 @@ export class ReservationService {
       .where('reservation.userId = :id', {id: userId})
       .getMany();
   }
+
+  async findByState(stateT: string): Promise<Reservation[]> {
+    return await this.reservationRepository
+      .createQueryBuilder('reservation')
+      .where('reservation.state = :state', {state: stateT})
+      .getMany();
+  }
 }
