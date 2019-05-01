@@ -28,7 +28,7 @@ export class AppointmentController {
     return this.appointmentService.findAppointmentsByResId(id);
   }
 
-  @Get('findAppointmentsByDate=:date')
+  @Get('/findAppointmentsByDate=:date')
   async findAppointmentsByDate(@Param('date') date: string): Promise<Appointment[]>{
     return this.appointmentService.findAppointmentsByDate(date);
   }

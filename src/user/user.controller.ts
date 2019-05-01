@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Logger, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Logger, Param, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDTO, UserRO } from './userDTO';
 import { AuthGuard } from '../shared/auth.guard';
@@ -14,6 +14,16 @@ export class UserController {
   async findAll(@User() user) {
     if (user.role === 'Admin') {
       return await this.userService.findAll();
+    } else {
+      return new HttpException('Permission denied', HttpStatus.FORBIDDEN);
+    }
+  }
+
+  @Get('findUserById=:id')
+  @UseGuards(new AuthGuard())
+  async findById(@User() user, @Param('id') id: number) {
+    if (user.role === 'Admin') {
+      return await this.userService.findOneById(id);
     } else {
       return new HttpException('Permission denied', HttpStatus.FORBIDDEN);
     }

@@ -14,38 +14,45 @@ export class ReservationController {
    @Post('/save')
    @UseGuards(new AuthGuard())
   async save(@User() user, @Body() reservation: Reservation ) {
+     Logger.log('Save called');
      const userTemp = await this.userService.findOneById(user.id);
      if(!userTemp){
        throw new HttpException('User does not exist!', HttpStatus.BAD_REQUEST);
      }
      // TODO tulajdonos külde vagy admin
-     reservation.userId = user.id;
-     return this.reservationService.save(reservation);
+     if(userTemp.role !== 'Admin'){
+       reservation.userId = user.id;
+     }
+     return await this.reservationService.save(reservation);
    }
 
    @Get('/findAll')
    @UseGuards(new AuthGuard())
-  async findAll(): Promise<Reservation[]> {
-     return this.reservationService.findAll();
+  async findAll(@User() user): Promise<Reservation[]> {
+     if (user.role === 'Admin') {
+       return this.reservationService.findAll();
+     } else {
+       throw new HttpException('Access denied', HttpStatus.BAD_REQUEST);
+     }
    }
 
    @Get('/findById/:id')
    @UseGuards(new AuthGuard())
   async findById(@Param('id') id: number): Promise<Reservation> {
-    return this.reservationService.findById(id);
+    return await this.reservationService.findById(id);
   }
 
   @Get('/findByUser')
   @UseGuards(new AuthGuard())
   async findUserById(@User() user): Promise<Reservation[]> {
-    return this.reservationService.findByUserId(user.id);
+    return await this.reservationService.findByUserId(user.id);
   }
 
   @Get('/findByState/:state')
   @UseGuards(new AuthGuard())
   async findByState(@User() user, @Param('state') state: string) {
      if (user.role === 'Admin') {
-       return this.reservationService.findByState(state);
+       return await this.reservationService.findByState(state);
      } else {
        throw new HttpException('Access denied', HttpStatus.BAD_REQUEST);
      }

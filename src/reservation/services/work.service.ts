@@ -17,7 +17,6 @@ export class WorkService{
 
   async removeWork(work: Work){
     return await this.workRepository.remove(work).catch(error => {
-      Logger.log(work);
       Logger.log(error);
     });
   }

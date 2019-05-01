@@ -18,8 +18,10 @@ export class ReservationService {
     ) { }
 
   async save(reservation: Reservation) {
-      this.reservationRepository.save(reservation);
+    Logger.log(reservation);
+    return this.reservationRepository.save(reservation);
   }
+
 
   async findAll(): Promise<Reservation[]> {
     return await this.reservationRepository.find();
@@ -32,17 +34,13 @@ export class ReservationService {
     });
     await this.workService.findWorksByResId(id).then((works) => {
       reservation.works = works;
-      Logger.log(reservation);
     });
     await this.appointmentService.findAppointmentsByResId(id).then((appointments) => {
       reservation.appointments = appointments;
-      Logger.log(reservation);
     });
     await this.commentService.findCommentsByResId(id).then((comments) => {
       reservation.comments = comments;
-      Logger.log(reservation);
     });
-    Logger.log(reservation);
     return reservation;
   }
 

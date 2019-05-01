@@ -24,7 +24,7 @@ export class AppointmentService {
   async findAppointmentsByResId(reId: number): Promise<Appointment[]> {
     return await this.appointmentRepository
       .createQueryBuilder('appointment')
-      .where('appointment.reservation.id = :id', { id: reId })
+      .where('appointment.reservationId = :id', { id: reId })
       .getMany();
   }
 
