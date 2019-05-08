@@ -54,7 +54,7 @@ export class ReservationService {
   async findByState(stateT: string): Promise<Reservation[]> {
     return await this.reservationRepository
       .createQueryBuilder('reservation')
-      .where('reservation.state = :state', {state: stateT})
+      .where('reservation.adminStatus = :adminStatus', {state: stateT})
       .getMany();
   }
 }

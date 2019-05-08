@@ -14,22 +14,22 @@ export class AppointmentController {
   async addWork(@Param('id') id: number, @Body() appointment: Appointment) {
     this.reservationService.findById(id).then((res) => {
       appointment.reservation = res;
-      this.appointmentService.saveAppointment(appointment);
+      return this.appointmentService.saveAppointment(appointment);
     });
   }
 
   @Delete('/deleteAppointment')
   async removeWork(@Body() appointment: Appointment){
-    this.appointmentService.removeAppointment(appointment);
+    return await this.appointmentService.removeAppointment(appointment);
   }
 
   @Get('/findAppointmentsResId=:id')
   async findAppointmentsByResId(@Param('id') id: number): Promise<Appointment[]> {
-    return this.appointmentService.findAppointmentsByResId(id);
+    return await this.appointmentService.findAppointmentsByResId(id);
   }
 
   @Get('/findAppointmentsByDate=:date')
   async findAppointmentsByDate(@Param('date') date: string): Promise<Appointment[]>{
-    return this.appointmentService.findAppointmentsByDate(date);
+    return await this.appointmentService.findAppointmentsByDate(date);
   }
 }

@@ -18,6 +18,9 @@ import { WorkController } from './reservation/controllers/work.controller';
 import { User } from './user/user.entity';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
+import { Rating } from './rating/rating.entity';
+import { RatingController } from './rating/rating.controller';
+import { RatingService } from './rating/rating.service';
 
 @Module({
   imports: [
@@ -29,6 +32,7 @@ import { UserService } from './user/user.service';
       Comment,
       Work,
       User,
+      Rating
     ])],
   controllers: [
     AppController,
@@ -37,6 +41,7 @@ import { UserService } from './user/user.service';
     AppointmentController,
     WorkController,
     UserController,
+    RatingController
   ],
   providers: [
     AppService,
@@ -45,6 +50,7 @@ import { UserService } from './user/user.service';
     AppointmentService,
     CommentService,
     UserService,
+    RatingService
   ],
 })
 export class AppModule {

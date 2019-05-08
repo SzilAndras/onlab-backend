@@ -25,7 +25,14 @@ export class Reservation {
     enum: ['Pending', 'Accepted', 'Rejected'],
     default: 'Pending',
   })
-  state: string;
+  adminStatus: string;
+
+  @Column({
+    type: 'enum',
+    enum: ['Pending', 'Accepted', 'Rejected'],
+    default: 'Pending',
+  })
+  userStatus: string;
 
   @OneToMany(type => Appointment, appointment => appointment.reservation, {
     cascade: true,

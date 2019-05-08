@@ -12,13 +12,11 @@ export class AppointmentService {
 
   async saveAppointment(appointment: Appointment){
     appointment.day.setHours(0, 0, 0, 0);
-    this.appointmentRepository.save(appointment);
+    return this.appointmentRepository.save(appointment);
   }
 
-  async removeAppointment(appointment: Appointment){
-    this.appointmentRepository.remove(appointment).catch(error => {
-      Logger.log(error);
-    });
+  async removeAppointment(appointment: Appointment) {
+    return this.appointmentRepository.remove(appointment);
   }
 
   async findAppointmentsByResId(reId: number): Promise<Appointment[]> {

@@ -17,7 +17,7 @@ export class Work {
 
   @Column({
     type: 'enum',
-    enum: ['Pending', 'Accepted'],
+    enum: ['Pending', 'Accepted', 'Rejected'],
     default: 'Pending',
   })
    state: string; // TODO Pending, Accepted
